@@ -10,3 +10,4 @@ const Button: React.FC<ButtonProps> = ({ restartGame }) => {
 }
 
 export default Button;
+

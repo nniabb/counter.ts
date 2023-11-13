@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useRef, useState } from "react";
 import "./App.css";
 import Game from "./Game";
 import { RestartRef } from "./Game";
@@ -6,14 +6,27 @@ import Button from "./Resbutton";
 
 function App() {
   const restartRef = useRef<RestartRef>(null);
-  
+  const [isGameOver, setIsGameOver] = useState<boolean>(false);
+
+  const handleGameOver = () => {
+    setIsGameOver(true);
+  };
+
   return (
     <div className="App">
-      <Game ref={restartRef} />
-      <Button restartGame={() => restartRef.current?.restart()} />
+      <Game ref={restartRef} onGameOver={handleGameOver} />
+      {isGameOver && (
+        <Button
+          restartGame={() => {
+            setIsGameOver(false);
+            restartRef.current?.restart();
+          }}
+        />
+      )}
     </div>
   );
 }
+
 
 export default App;
 
